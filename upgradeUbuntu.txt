@@ -1,0 +1,30 @@
+Before starting the upgrade process we need to ensure we have the minimum required space left in the root volume of the instance.
+
+Minimum space required - 5GB
+
+Create an AMI of the instance as a backup
+
+Upgrade from 16.04 to 20.04
+Verify what is the service that is running on the box
+ps -aux | grep <service>
+
+Note down all the services
+apt update
+apt upgrade
+apt dist-upgrade
+do-release-upgrade -c (to check the available release version)
+do-release-upgrade (to start the upgrade)
+In this step, it will ask for a few questions related to upgrading please select the appropriate choise.
+After the upgrade process will ask to reboot the instance.
+After reboot verify the upgraded OS version 
+lsb_release -a
+
+Check the mount point of ephemeral folder using df -h and if it is not there please mount it.
+mount -o discard /dev/xvdb /mnt/ephemeral/
+service xxxxx restart
+Now start all the service that you found running with ps -aux command on the first step.
+eg.  service xxxxx start
+service xxxxx start
+
+Upgrade 18.04 to 20.04
+Follow all the above steps again.

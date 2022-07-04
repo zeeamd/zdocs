@@ -1,0 +1,81 @@
+##
+https://realpython.com/python-virtual-environments-a-primer/
+https://virtualenvwrapper.readthedocs.io/en/latest/command_ref.html
+
+## ansible awx win params
+ansible_winrm_transport: ntlm
+ansible_winrm_port: 5986
+ansible_connection: winrm
+ansible_winrm_server_cert_validation: ignore
+
+## mount ntfs on amazon ami
+yum --enablerepo=epel install ntfs-3g
+
+## pip global index
+https://pypi.python.org/simple/
+
+## serverless framework
+For debugging logs, run again after setting the "SLS_DEBUG=*" environment variable
+
+## generate temp keys aws
+aws sts assume-role --role-arn arn:aws:iam::1234567890:role/xxxxx-crossaccount-role --role-session-name temp
+
+## download lambda code aws cli
+aws lambda get-function --function-name $functionName --query 'Code.Location'
+wget '<url from above>'
+
+## upload zip to lambda cli aws
+aws lambda update-function-code --function-name <fn name> --zip-file fileb://<file>.zip
+aws lambda update-function-code --function-name <fn nm> --s3-bucket <bkt nm>  --s3-key <key nm>
+
+## add custom header to s3 objects
+aws s3 cp s3://clientv1/ABC.2020-03-18-15.7dce03ee.gz s3://clientv1/ABC.2020-03-18-15.7dce03ee.gz 
+--metadata-directive REPLACE 
+--metadata '{""Cache-Control"":""max-age=2419200"",""must-revalidate"":""stale-while-revalidate=86400""}' 
+--profile abc
+
+## collect redis dump
+redis-dump -p 6379 -h localhost -d 0 > file.txt
+
+## download & tag untagged image ecr
+MANIFEST=$(aws ecr batch-get-image --repository-name abc-service --image-ids imageDigest=sha256:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx --query 'images[].imageManifest' --output text --region eu-west-1)
+aws ecr put-image --repository-name abc-service --image-tag latest --image-manifest ""$MANIFEST"" --region eu-west-1
+
+## awx params
+authtype: none
+cf: testp2s1
+customer: testing
+x_name: testp2
+region: us-east-1
+sname: testp2s1-test
+spath: testing-testp2s1
+stage: test
+
+## jira filter
+project = DEVOPS AND resolution = Done  AND assignee = "zeeshan.ahmed@devops.com" ORDER BY priority ASC, updated DESC
+
+## add a new submodule with branch in github
+rm -Rf <clone-folder>
+git rm -r <clone-folder>
+git submodule add -b <submodule-branch> <git-repo-url> <clone-folder>
+
+## target specific resource
+terraform apply --target=module.vpc.aws_instance.bastion[0] --target=module.vpc.aws_eip_association.bastion-eip-assoc[0]
+
+## serverless deployment
+npm install -g serverless
+npm install serverless-python-requirements
+npm i serverless-plugin-split-stacks
+remove stack manually on cfn aws gui
+sls deploy --aws-profile abc --stage dev
+create R53 entry for api custom domain
+use the api key & r53 entry in cli
+
+## Gatling steps
+export GATLING_HOME=/software/gatling
+export JAVA_HOME or
+export GATLING_HOME=/software/gatling
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre
+gatling [return]
+select class to execute - ensure the class selected contains a test scenario
+or gatling -s <class name containing scenario>
