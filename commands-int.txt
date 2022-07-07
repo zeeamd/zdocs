@@ -79,3 +79,6 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre
 gatling [return]
 select class to execute - ensure the class selected contains a test scenario
 or gatling -s <class name containing scenario>
+
+## lookup ami
+aws ec2 describe-images --owners 801119661308 --profile xxx --filters "Name=virtualization-type,Values=hvm" "Name=name,Values=Windows_Server-2019-English-Full-Base-2022.05*"
