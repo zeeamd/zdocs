@@ -1,0 +1,23 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": [
+                    "arn:aws:iam::1234567890:user/u1",
+                    "arn:aws:iam::1234567890:user/u2",
+                    "arn:aws:iam::1234567890:user/u3",
+                    "arn:aws:iam::1234567890:user/u4",
+                    "arn:aws:iam::1234567890:user/u5",
+                ]
+            },
+            "Action": "sts:AssumeRole",
+            "Condition": {
+                "BoolIfExists": {
+                    "aws:MultiFactorAuthPresent": "true"
+                }
+            }
+        }
+    ]
+}

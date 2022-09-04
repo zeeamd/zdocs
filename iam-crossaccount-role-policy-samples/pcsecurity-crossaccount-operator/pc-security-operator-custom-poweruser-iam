@@ -1,0 +1,119 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowPowerUserReadOnlyAccessToIAMConsole",
+            "Effect": "Allow",
+            "Action": [
+                "iam:Get*",
+                "iam:List*",
+                "iam:Generate*",
+                "iam:TagRole",
+                "iam:PassRole"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "AllowPowerUserCertificateManagement",
+            "Effect": "Allow",
+            "Action": [
+                "iam:DeleteServerCertificate",
+                "iam:UpdateServerCertificate",
+                "iam:UploadServerCertificate"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "AllowPowerUsersToCreateAndDeleteManagedPoliciesExceptpcSecurity",
+            "Effect": "Allow",
+            "Action": [
+                "iam:CreatePolicy",
+                "iam:CreatePolicyVersion",
+                "iam:DeletePolicy",
+                "iam:DeletePolicyVersion"
+            ],
+            "NotResource": "arn:aws:iam::*:policy/pc-security-*"
+        },
+        {
+            "Sid": "AllowRoleCreationOrChangeOnlyWithBoundary",
+            "Effect": "Allow",
+            "Action": [
+                "iam:PutRolePolicy",
+                "iam:CreateRole",
+                "iam:UpdateRole",
+                "iam:AttachRolePolicy",
+                "iam:CreateServiceLinkedRole"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "ArnLike": {
+                    "iam:PermissionsBoundary": "arn:aws:iam::*:policy/pc-security-global-boundary"
+                }
+            }
+        },
+        {
+            "Sid": "AllowUsersToAddGlobalBoundaryToAnyPreExistingRoleExceptManagementRoles",
+            "Effect": "Allow",
+            "Action": [
+                "iam:PutRolePermissionsBoundary"
+            ],
+            "NotResource": [
+                "arn:aws:iam::*:role/pcsecurity-*",
+                "arn:aws:iam::*:role/pcSecurity-*"
+            ],
+            "Condition": {
+                "ArnLike": {
+                    "iam:PermissionsBoundary": "arn:aws:iam::*:policy/pc-security-global-boundary"
+                }
+            }
+        },
+        {
+            "Sid": "DeleteNonpcSecurityRoles",
+            "Effect": "Allow",
+            "Action": [
+                "iam:AddRoleToInstanceProfile",
+                "iam:CreateInstanceProfile",
+                "iam:RemoveRoleFromInstanceProfile",
+                "iam:DeleteInstanceProfile",
+                "iam:DeleteRole",
+                "iam:DeleteRolePolicy",
+                "iam:DetachRolePolicy"
+            ],
+            "NotResource": [
+                "arn:aws:iam::*:role/pcsecurity-*",
+                "arn:aws:iam::*:role/pcSecurity-*"
+            ]
+        },
+        {
+            "Sid": "LimitedUserCreateForSES",
+            "Effect": "Allow",
+            "Action": [
+                "iam:CreateUser"
+            ],
+            "Resource": "arn:aws:iam::*:user/ses-*"
+        },
+        {
+            "Sid": "AllowSESPolicyAttachmentToUsers",
+            "Effect": "Allow",
+            "Action": [
+                "iam:AttachUserPolicy"
+            ],
+            "Resource": "arn:aws:iam::*:user/ses-*",
+            "Condition": {
+                "ArnLike": {
+                    "iam:PolicyArn": "arn:aws:iam::*:policy/pc-security-ses-send"
+                }
+            }
+        },
+        {
+            "Sid": "AllowCreationOfKeysForSESUsers",
+            "Effect": "Allow",
+            "Action": [
+                "iam:CreateAccessKey",
+                "iam:DeleteAccessKey",
+                "iam:UpdateAccessKey"
+            ],
+            "Resource": "arn:aws:iam::*:user/ses-*"
+        }
+    ]
+}

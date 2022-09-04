@@ -1,0 +1,60 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DenyPowerUserAccessToCostExplorerAndBilling",
+            "Effect": "Deny",
+            "Action": "aws-portal:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "DenyEC2Purchases",
+            "Effect": "Deny",
+            "Action": [
+                "ec2:Purchase*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "DenyAWSConfigChanges",
+            "Effect": "Deny",
+            "Action": [
+                "config:Put*",
+                "config:Delete*",
+                "config:Stop*",
+                "config:StartConfigurationRecorder",
+                "config:UntagResource"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "DenyGuardDutyChanges",
+            "Effect": "Deny",
+            "Action": [
+                "guardduty:AcceptInvitation",
+                "guardduty:Create*",
+                "guardduty:Decline*",
+                "guardduty:Delete*",
+                "guardduty:Dis*",
+                "guardduty:Invite*",
+                "guardduty:Stop*",
+                "guardduty:Start*",
+                "guardduty:Update*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "DenyCloudTrailpcMasterTrail",
+            "Effect": "Deny",
+            "Action": [
+                "cloudtrail:Delete*",
+                "cloudtrail:PutEventSelectors",
+                "cloudtrail:RemoveTags",
+                "cloudtrail:StartLogging",
+                "cloudtrail:StopLogging",
+                "cloudtrail:UpdateTrail"
+            ],
+            "Resource": "arn:aws:cloudtrail:*:*:trail/pc-cloudtrail-*"
+        }
+    ]
+}

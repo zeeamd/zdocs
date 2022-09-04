@@ -1,0 +1,6 @@
+- This contains sample roles/policies for AWS
+- The pc-global-security-boundary is a boundary policy to be attached to each role
+- No role can exist without boundary
+- The role pcsecurity-crossaccount-operator in the dir and all other roles must have the boundary attached to it
+- This pcsecurity-crossaccount-operator-trust-relationships contains all users who can assume this role
+- This is the sample structure for cross account access as a Ops guy
