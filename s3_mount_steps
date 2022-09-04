@@ -1,0 +1,28 @@
+apt-get update
+
+apt-get install automake autotools-dev fuse g++ git libcurl4-gnutls-dev libfuse-dev libssl-dev libxml2-dev make pkg-config
+
+git clone https://github.com/s3fs-fuse/s3fs-fuse.git
+
+cd s3fs-fuse
+
+./autogen.sh
+
+./configure
+
+make
+
+make install
+
+vi /etc/passwd-s3fs
+[enter the access_key:secret]
+
+chmod 640 /etc/passwd-s3fs
+
+vi /etc/fuse.conf
+[uncomment user_allow_other]
+
+s3fs -o allow_other,url="https://s3-ap-southeast-1.amazonaws.com" a1-efs-share /s3/efs_share/nfs_data/data
+[command to mount]
+
+
