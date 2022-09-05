@@ -1,0 +1,18 @@
+- https://d1.awsstatic.com/events/reinvent/2019/AWS_Control_Tower_versus_AWS_Landing_Zone_GPSTEC203.pdf
+- https://onica.com/blog/managed-services/aws-landing-zone/
+- https://www.blazeclan.com/blog/manage-an-aws-landing-zone-using-aws-control-tower-account-factory-for-terraform/
+- https://www.scalefactory.com/blog/2022/04/29/is-aws-control-tower-suitable-for-terraform-users/
+- https://learn.hashicorp.com/tutorials/terraform/aws-control-tower-aft
+
+Sample Multi A/C Arch.
+-- pc-master - master a/c
+-- pc-corporate - shared services a/c - aws transit g/w
+-- pc-aws-compliance - log archive a/c - aws cloudtrail/config 
+-- pc-aws-security - security a/c - security cross-account roles/guard duty + iam users
+-- pc-platform-ops - ansible + jira + confluence
+
+Repository Name -> Repository Purpose
+-- aft-account-request -> New account provisioning request using AFT
+-- aft-global-customizations -> Specify customizations to apply to all accounts created by AFT
+-- aft-account-customizations -> Specify account-related customizations
+-- aft-account-provisioning-customizations -> Specify provisioning-time customizations to apply to accounts
