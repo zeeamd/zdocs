@@ -3,6 +3,7 @@
 - https://www.blazeclan.com/blog/manage-an-aws-landing-zone-using-aws-control-tower-account-factory-for-terraform/
 - https://www.scalefactory.com/blog/2022/04/29/is-aws-control-tower-suitable-for-terraform-users/
 - https://learn.hashicorp.com/tutorials/terraform/aws-control-tower-aft
+- https://github.com/aws-ia/terraform-aws-control_tower_account_factory
 
 Sample Multi A/C Arch.
 -- pc-master - master a/c
