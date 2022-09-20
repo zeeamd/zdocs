@@ -4,6 +4,7 @@
 - https://www.scalefactory.com/blog/2022/04/29/is-aws-control-tower-suitable-for-terraform-users/
 - https://learn.hashicorp.com/tutorials/terraform/aws-control-tower-aft
 - https://github.com/aws-ia/terraform-aws-control_tower_account_factory
+- https://docs.aws.amazon.com/controltower/latest/userguide/aft-remove-account.html
 
 Sample Multi A/C Arch.
 -- pc-master - master a/c
