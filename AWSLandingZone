@@ -6,7 +6,6 @@
 - https://github.com/aws-ia/terraform-aws-control_tower_account_factory
 - https://docs.aws.amazon.com/controltower/latest/userguide/aft-remove-account.html
 - https://registry.terraform.io/modules/cloudposse/config/aws/latest/submodules/conformance-pack
-- https://www.terraform.io/downloads
 
 Sample Multi A/C Arch.
 -- pc-master - master a/c
