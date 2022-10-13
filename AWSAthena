@@ -1,0 +1,66 @@
+-- Athena table for organization wide CloudTrail logs
+
+CREATE EXTERNAL TABLE cloudtrail_logs (
+eventversion STRING,
+useridentity STRUCT<
+               type:STRING,
+               principalid:STRING,
+               arn:STRING,
+               accountid:STRING,
+               invokedby:STRING,
+               accesskeyid:STRING,
+               userName:STRING,
+sessioncontext:STRUCT<
+attributes:STRUCT<
+               mfaauthenticated:STRING,
+               creationdate:STRING>,
+sessionissuer:STRUCT<  
+               type:STRING,
+               principalId:STRING,
+               arn:STRING, 
+               accountId:STRING,
+               userName:STRING>>>,
+eventtime STRING,
+eventsource STRING,
+eventname STRING,
+awsregion STRING,
+sourceipaddress STRING,
+useragent STRING,
+errorcode STRING,
+errormessage STRING,
+requestparameters STRING,
+responseelements STRING,
+additionaleventdata STRING,
+requestid STRING,
+eventid STRING,
+resources ARRAY<STRUCT<
+               ARN:STRING,
+               accountId:STRING,
+               type:STRING>>,
+eventtype STRING,
+apiversion STRING,
+readonly STRING,
+recipientaccountid STRING,
+serviceeventdetails STRING,
+sharedeventid STRING,
+vpcendpointid STRING
+)
+PARTITIONED BY (account string, region string, year string, month string, day string)
+ROW FORMAT SERDE 'com.amazon.emr.hive.serde.CloudTrailSerde'
+STORED AS INPUTFORMAT 'com.amazon.emr.cloudtrail.CloudTrailInputFormat'
+OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
+LOCATION 's3://aws-controltower-logs-827707362157-us-east-1/o-w57ehyggaz/AWSLogs/o-w57ehyggaz/';
+
+## ROW FORMAT SERDE / STORED AS INPUTFORMAT / OUTPUTFORMAT all defaults used as per AWS docs
+
+- create a partition before running queries
+
+ALTER TABLE cloudtrail_logs ADD
+PARTITION (account='052080266972',
+region='us-east-1',
+year='2022',
+month='10',
+day='11')
+LOCATION 's3://aws-controltower-logs-827707362157-us-east-1/o-w57ehyggaz/AWSLogs/o-w57ehyggaz/052080266972/CloudTrail/us-east-1/2022/10/11/';
+
+select * from cloudtrail_logs;
