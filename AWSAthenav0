@@ -64,3 +64,39 @@ day='11')
 LOCATION 's3://aws-controltower-logs-827707362157-us-east-1/o-w57ehyggaz/AWSLogs/o-w57ehyggaz/052080266972/CloudTrail/us-east-1/2022/10/11/';
 
 select * from cloudtrail_logs;
+
+-- create table for AWS Config data
+
+CREATE EXTERNAL TABLE aws_config_configuration_snapshot (
+    fileversion STRING,
+    configSnapshotId STRING,
+    configurationitems ARRAY < STRUCT <
+        configurationItemVersion : STRING,
+        configurationItemCaptureTime : STRING,
+        configurationStateId : BIGINT,
+        awsAccountId : STRING,
+        configurationItemStatus : STRING,
+        resourceType : STRING,
+        resourceId : STRING,
+        resourceName : STRING,
+        ARN : STRING,
+        awsRegion : STRING,
+        availabilityZone : STRING,
+        configurationStateMd5Hash : STRING,
+        configuration : STRING,
+        supplementaryConfiguration : MAP < STRING, STRING >,
+        tags: MAP < STRING, STRING >,
+        resourceCreationTime : STRING
+    > >
+) PARTITIONED BY (accountid STRING, dt STRING, region STRING) 
+ROW FORMAT SERDE 'org.openx.data.jsonserde.JsonSerDe'
+LOCATION 's3://aws-controltower-logs-827707362157-us-east-1/o-w57ehyggaz/AWSLogs/';
+
+- create partition
+
+ALTER TABLE aws_config_configuration_snapshot ADD
+  PARTITION (accountid = '052080266972', dt = '2022-10-11', region = 'us-east-1')
+  LOCATION 's3://aws-controltower-logs-827707362157-us-east-1/o-w57ehyggaz/AWSLogs/052080266972/Config/us-east-1/2022/10/11/ConfigSnapshot/';
+
+SELECT * FROM aws_config_configuration_snapshot
+where accountid='052080266972' and dt='2022-10-11' and region='us-east-1';
