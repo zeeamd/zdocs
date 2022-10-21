@@ -1,0 +1,54 @@
+--devaccone (052080266972)
+- ec2 instance
+- ec2 instance profile -> iam role
+- policy
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "sts:AssumeRole",
+            "Resource": [
+                "arn:aws:iam::542943768316:role/<devacctwo-role>"
+            ]
+        }
+    ]
+}
+- trust entities
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "ec2.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+}
+
+- commands in ec2
+aws sts assume-role --role-arn arn:aws:iam::542943768316:role/<devacctwo-role> --role-session-name <anyname>
+export AWS_ACCESS_KEY_ID=
+export AWS_SECRET_ACCESS_KEY=
+export AWS_SESSION_TOKEN=
+
+--devacctwo (542943768316)
+- devacctwo-role
+- trust entities
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Statement1",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::052080266972:role/<devaccone-role>"
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+}
+- policy
+as per what is needed by the app in ec2 instance
