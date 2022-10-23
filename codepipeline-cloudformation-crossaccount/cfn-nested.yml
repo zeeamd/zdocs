@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Parameters:
+  deployto:
+    Type: String
+    Default: dev
+    
+Conditions:
+  IsProd: !Equals 
+    - !Ref deployto
+    - prod
+    
+  IsDev: !Equals
+    - !Ref deployto
+    - dev
+
+Resources:
+  DevS:
+    Type: AWS::CloudFormation::Stack
+    Condition: IsDev
+    Properties:
+      TemplateURL: https://cpdevaccone.s3.amazonaws.com/nested/dev.yml
+      Parameters:
+        env: !Ref deployto
+        
+  ProdS:
+    Type: AWS::CloudFormation::Stack
+    Condition: IsProd
+    Properties:
+      TemplateURL: https://cpdevaccone.s3.amazonaws.com/nested/dev.yml
+      Parameters:
+        env: !Ref deployto
