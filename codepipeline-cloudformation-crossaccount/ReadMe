@@ -1,0 +1,31 @@
+--The doc referred is https://aws.amazon.com/premiumsupport/knowledge-center/codepipeline-deploy-cloudformation/
+
+-devaccone 052080266972
+ arn:aws:s3:::cpdevaccone
+ arn:aws:kms:us-east-1:052080266972:key/7eac844d-3414-4b26-b249-5fd9e722ede0
+ arn:aws:iam::052080266972:role/cpdevaccone
+  This role should have access to s3 & codecommit
+  This should be able to assume cross account role in devacctwo
+  This will be used by codepipeline
+
+-devacctwo 542943768316
+ arn:aws:iam::542943768316:policy/cpdevaccones3
+ arn:aws:iam::542943768316:policy/cpdevacconekms
+ arn:aws:iam::542943768316:role/cpdevacctwo
+  The above 2 policies will be attached to thie role
+ arn:aws:iam::542943768316:role/cpdevacctwocfn
+  This is the service role for cloudformation 
+
+- The codepipeline may not have all params set correctly
+- Note diff between v0.json and v1.json
+- Download the pipeline settings in json using
+  aws codepipeline get-pipeline --region us-east-1 --name v0 > v0.json
+
+- Update the params
+  artifactStore.encryptionKey.id with correct value
+  add devacctwo roleArn in stages.Deploy.Actions
+
+-Update the codepipeline with the new correct updated values using
+ aws codepipeline create-pipeline --cli-input-json file://v1.json --region us-east-1
+or
+ aws codepipeline update-pipeline --cli-input-json file://v1.json --region us-east-1

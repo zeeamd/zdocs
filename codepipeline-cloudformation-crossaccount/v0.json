@@ -1,0 +1,81 @@
+{
+    "pipeline": {
+        "name": "v0",
+        "roleArn": "arn:aws:iam::052080266972:role/cpdevaccone",
+        "artifactStore": {
+            "type": "S3",
+            "location": "cpdevaccone",
+            "encryptionKey": {
+                "id": "arn:aws:kms:us-east-1:052080266972:alias/cpdevacconev0",
+                "type": "KMS"
+            }
+        },
+        "stages": [
+            {
+                "name": "Source",
+                "actions": [
+                    {
+                        "name": "Source",
+                        "actionTypeId": {
+                            "category": "Source",
+                            "owner": "AWS",
+                            "provider": "CodeCommit",
+                            "version": "1"
+                        },
+                        "runOrder": 1,
+                        "configuration": {
+                            "BranchName": "main",
+                            "OutputArtifactFormat": "CODE_ZIP",
+                            "PollForSourceChanges": "false",
+                            "RepositoryName": "v0"
+                        },
+                        "outputArtifacts": [
+                            {
+                                "name": "SourceArtifact"
+                            }
+                        ],
+                        "inputArtifacts": [],
+                        "region": "us-east-1",
+                        "namespace": "SourceVariables"
+                    }
+                ]
+            },
+            {
+                "name": "Deploy",
+                "actions": [
+                    {
+                        "name": "Deploy",
+                        "actionTypeId": {
+                            "category": "Deploy",
+                            "owner": "AWS",
+                            "provider": "CloudFormation",
+                            "version": "1"
+                        },
+                        "runOrder": 1,
+                        "configuration": {
+                            "ActionMode": "CREATE_UPDATE",
+                            "Capabilities": "CAPABILITY_IAM",
+                            "RoleArn": "arn:aws:iam::542943768316:role/cpdevacctwocfn",
+                            "StackName": "cpdevacctwo-one",
+                            "TemplatePath": "SourceArtifact::cfn.yaml"
+                        },
+                        "outputArtifacts": [],
+                        "inputArtifacts": [
+                            {
+                                "name": "SourceArtifact"
+                            }
+                        ],
+                        "region": "us-east-1",
+                        "namespace": "DeployVariables"
+                    }
+                ]
+            }
+        ],
+        "version": 1
+    },
+    "metadata": {
+        "pipelineArn": "arn:aws:codepipeline:us-east-1:052080266972:v0",
+        "created": "2022-10-23T11:15:03.178000+05:30",
+        "updated": "2022-10-23T11:15:03.178000+05:30"
+    }
+}

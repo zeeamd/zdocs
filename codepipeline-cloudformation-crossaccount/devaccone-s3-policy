@@ -1,0 +1,27 @@
+{
+    "Version": "2012-10-17",
+    "Id": "Policy1553183091390",
+    "Statement": [
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::542943768316:root"
+            },
+            "Action": [
+                "s3:Get*",
+                "s3:Put*"
+            ],
+            "Resource": "arn:aws:s3:::cpdevaccone/*"
+        },
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::542943768316:root"
+            },
+            "Action": "s3:ListBucket",
+            "Resource": "arn:aws:s3:::cpdevaccone"
+        }
+    ]
+}
