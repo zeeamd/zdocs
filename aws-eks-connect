@@ -1,0 +1,21 @@
+## https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html
+
+- Ensure awscli is configured to access env
+
+## https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html
+
+- Install kubectl using curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.24.9/2023-01-11/bin/linux/amd64/kubectl
+
+root@DESKTOP-L3SM155:~# aws sts get-caller-identity
+{
+    "UserId": "xxxxxxxxxxxxxxxxxx",
+    "Account": "00000000000000",
+    "Arn": "arn:aws:iam::0000000000000:user/user1"
+}
+
+root@DESKTOP-L3SM155:~# aws eks update-kubeconfig --region us-east-1 --name eks1
+Added new context arn:aws:eks:us-east-1:000000000000:cluster/eks1 to /root/.kube/config
+
+root@DESKTOP-L3SM155:~# kubectl get nodes
+NAME                            STATUS   ROLES    AGE    VERSION
+ip-192-0-129-144.ec2.internal   Ready    <none>   4h2m   v1.24.7-eks-fb459a0
