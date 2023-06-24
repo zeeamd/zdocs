@@ -2,6 +2,7 @@
 # Select relevant Subnets and SGs for the Endpoint
 # Just ensure the Endpoint is reachable from relevant Lambdas inside the Subnet
 # During Test All Traffic was allowed for Subnet CIDR in the SG used
+# However, this SG had only internal routes for both Inbound & Outbound. No outside traffic at all
 # The same SG was attached to both Lambda and Interface endpoint
 # Private DNS Resolver (Outbound) has caused issues in another tests
 # However, in this test there was no Private DNS Resolver/Forwarder
