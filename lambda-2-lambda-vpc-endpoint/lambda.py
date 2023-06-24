@@ -12,14 +12,14 @@
 import json
 import boto3
 
-c = boto3.client('lambda', endpoint_url='https://vpce-0b7ddd1a692a66753-wuc3oi7r.lambda.us-east-1.vpce.amazonaws.com')
+c = boto3.client('lambda', endpoint_url='https://vpce-yyyyyyyyyyyyyyyyy-xxxxxx.lambda.us-east-1.vpce.amazonaws.com')
 
 def lambda_handler(event, context):
     # TODO implement
     print("Triggered !!!")
 
     r = c.invoke(
-        FunctionName = "arn:aws:lambda:us-east-1:456235575972:function:l2"
+        FunctionName = "arn:aws:lambda:us-east-1:1234567890:function:l2"
         )
 
     return {
