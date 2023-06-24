@@ -2,7 +2,9 @@
 # Select relevant Subnets and SGs for the Endpoint
 # Just ensure the Endpoint is reachable from relevant Lambdas inside the Subnet
 # During Test All Traffic was allowed for Subnet CIDR in the SG used
-# Private DNS Resolver (Outbound) has caused issues in tests
+# The same SG was attached to both Lambda and Interface endpoint
+# Private DNS Resolver (Outbound) has caused issues in another tests
+# However, in this test there was not Private DNS Resolver/Forwarder
 # The VPC Endpoint will publish a few DNS names which are to be used in the code when invoking the other lambda
 # The following code invoke lambda l2 using the VPC endpoint DNS in endpoint_url
 # boto3 is part of default lambda so extra module need not be loaded
