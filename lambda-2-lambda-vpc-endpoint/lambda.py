@@ -4,7 +4,7 @@
 # During Test All Traffic was allowed for Subnet CIDR in the SG used
 # However, this SG had only internal routes for both Inbound & Outbound. No outside traffic at all
 # The same SG was attached to both Lambda and Interface endpoint
-# The NACL had public routes enabled 0.0.0.0/0 was allowed
+# The NACL had public routes enabled 0.0.0.0/0 was allowed both Inbound & Outbound
 # Private DNS Resolver (Outbound) has caused issues in another tests
 # However, in this test there was no Private DNS Resolver/Forwarder
 # The VPC Endpoint will publish a few DNS names which are to be used in the code when invoking the other lambda
